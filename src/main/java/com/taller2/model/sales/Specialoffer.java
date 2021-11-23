@@ -3,6 +3,7 @@ package com.taller2.model.sales;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,6 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.taller2.model.validation.*;
 
 /**
  * The persistent class for the specialoffer database table.
@@ -27,10 +33,14 @@ public class Specialoffer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SPECIALOFFER_SPECIALOFFERID_GENERATOR")
 	private Integer specialofferid;
 
+	@NotBlank(groups={addValidation.class, updateValidation.class}, message="Category cannot be blank")
 	private String category;
 
 	private String description;
-
+	
+	@NotNull(groups={addValidation.class, updateValidation.class}, message="Discount cannot be blank")
+	@Digits(groups={addValidation.class, updateValidation.class}, message="Discount must be a decimal", fraction = 100000, integer = 1)
+	@Positive(groups={addValidation.class, updateValidation.class}, message="Discount must be greater than 0")
 	private BigDecimal discountpct;
 
 	private Timestamp enddate;
@@ -39,7 +49,10 @@ public class Specialoffer implements Serializable {
 
 	private Integer minqty;
 
-	private Timestamp modifieddate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(groups={addValidation.class, updateValidation.class}, message="Modified date cannot be blank")
+	@PastOrPresent(groups={addValidation.class, updateValidation.class}, message="Modified date must be now")
+	private LocalDate modifieddate;
 
 	private Integer rowguid;
 
@@ -85,7 +98,7 @@ public class Specialoffer implements Serializable {
 		return this.minqty;
 	}
 
-	public Timestamp getModifieddate() {
+	public LocalDate getModifieddate() {
 		return this.modifieddate;
 	}
 
@@ -140,7 +153,7 @@ public class Specialoffer implements Serializable {
 		this.minqty = minqty;
 	}
 
-	public void setModifieddate(Timestamp modifieddate) {
+	public void setModifieddate(LocalDate modifieddate) {
 		this.modifieddate = modifieddate;
 	}
 

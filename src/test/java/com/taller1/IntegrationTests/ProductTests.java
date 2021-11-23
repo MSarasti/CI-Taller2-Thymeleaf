@@ -19,17 +19,7 @@ import com.taller2.service.implementation.*;
 import com.taller2.service.interfaces.ProductService;
 
 @SpringBootTest
-public class ProductTests {
-	/*//@Mock
-	public ProductRepository prodRepository;
-	
-	//@Mock
-	public ProductCategoryRepository prodCatRepository;
-	
-	//@Mock
-	public ProductSubcategoryRepository prodSubRepository;*/
-	
-	//@InjectMocks
+public class ProductTests {/*
 	@Autowired
 	public ProductService prodServ;
 	
@@ -195,5 +185,5 @@ public class ProductTests {
 		}
 		
 		
-	}
+	}*/
 }

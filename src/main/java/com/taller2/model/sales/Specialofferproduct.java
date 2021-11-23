@@ -2,6 +2,7 @@ package com.taller2.model.sales;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EmbeddedId;
@@ -10,6 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import javax.validation.constraints.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.taller2.model.validation.addValidation;
+import com.taller2.model.validation.updateValidation;
 
 /**
  * The persistent class for the specialofferproduct database table.
@@ -23,7 +31,10 @@ public class Specialofferproduct implements Serializable {
 	@EmbeddedId
 	private SpecialofferproductPK id;
 
-	private Timestamp modifieddate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(groups={addValidation.class, updateValidation.class}, message="Modified date cannot be blank")
+	@PastOrPresent(groups={addValidation.class, updateValidation.class}, message="Modified date must be now")
+	private LocalDate modifieddate;
 
 	private Integer rowguid;
 
@@ -35,6 +46,12 @@ public class Specialofferproduct implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "specialofferid", insertable=false, updatable=false)
 	private Specialoffer specialoffer;
+	
+	@Transient
+	public Integer pId;
+	
+	@Transient 
+	public Integer sId;
 
 	public Specialofferproduct() {
 	}
@@ -50,7 +67,7 @@ public class Specialofferproduct implements Serializable {
 		return this.id;
 	}
 
-	public Timestamp getModifieddate() {
+	public LocalDate getModifieddate() {
 		return this.modifieddate;
 	}
 
@@ -77,7 +94,7 @@ public class Specialofferproduct implements Serializable {
 		this.id = id;
 	}
 
-	public void setModifieddate(Timestamp modifieddate) {
+	public void setModifieddate(LocalDate modifieddate) {
 		this.modifieddate = modifieddate;
 	}
 
@@ -91,6 +108,22 @@ public class Specialofferproduct implements Serializable {
 
 	public void setSpecialoffer(Specialoffer specialoffer) {
 		this.specialoffer = specialoffer;
+	}
+
+	public Integer getpId() {
+		return pId;
+	}
+
+	public void setpId(Integer pId) {
+		this.pId = pId;
+	}
+
+	public Integer getsId() {
+		return sId;
+	}
+
+	public void setsID(Integer sId) {
+		this.sId = sId;
 	}
 
 }

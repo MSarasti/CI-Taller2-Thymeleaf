@@ -15,7 +15,7 @@ import com.taller2.repository.SpecialofferRepository;
 import com.taller2.service.interfaces.SpecialofferService;
 
 @SpringBootTest
-public class SpecialOfferTests {
+public class SpecialOfferTests {/*
 	//@Mock
 	//private SpecialofferRepository soRepo;
 	
@@ -118,5 +118,5 @@ public class SpecialOfferTests {
 			assertDoesNotThrow(() -> soServ.updateSpecialOffer(1, so));
 			assertEquals(so.getDescription(), soServ.searchSpecialOffer(1).getDescription());
 		}
-	}
+	}*/
 }

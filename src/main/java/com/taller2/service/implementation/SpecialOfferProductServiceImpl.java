@@ -24,22 +24,14 @@ public class SpecialOfferProductServiceImpl implements SpecialofferproductServic
 	}
 
 	@Override
-	public Specialofferproduct saveSpecialOfferProduct(Specialofferproduct sp, Integer pId, Integer soId) throws Exception {
-		if(sp==null) {
-			throw new NullPointerException("SpecialOfferProduct must not be null");
-		}else {
-			Timestamp mod = sp.getModifieddate();
-			if(mod==null || (mod.getTime()<System.currentTimeMillis()-10000 || mod.getTime()>System.currentTimeMillis()+10000)) {
-				throw new Exception("SpecialOfferProduct modified date must be now and cannot be null");
-			}else {
-				Product p = pRep.findById(pId).get();
-				Specialoffer so = soRep.findById(soId).get();
-				sp.setSpecialoffer(so);
-				sp.getId().setProductid(pId);
-				sp.getId().setSpecialofferid(soId);
-				sopRep.save(sp);
-			}
-		}
+	public Specialofferproduct saveSpecialOfferProduct(Specialofferproduct sp, Integer pId, Integer soId) {
+		Product p = pRep.findById(pId).get();
+		Specialoffer so = soRep.findById(soId).get();
+		sp.setSpecialoffer(so);
+		sp.getId().setProductid(pId);
+		sp.getId().setSpecialofferid(soId);
+		sopRep.save(sp);
+		
 		return sp;
 	}
 
@@ -50,17 +42,12 @@ public class SpecialOfferProductServiceImpl implements SpecialofferproductServic
 	}
 
 	@Override
-	public Specialofferproduct updateSpecialOfferProduct(SpecialofferproductPK spId, Specialofferproduct sp) throws Exception {
+	public Specialofferproduct updateSpecialOfferProduct(SpecialofferproductPK spId, Specialofferproduct sp) {
 		Specialofferproduct toChange = sopRep.findById(spId).get();
-		Timestamp mod = sp.getModifieddate();
-		if(mod==null || (mod.getTime()<System.currentTimeMillis()-10000 || mod.getTime()>System.currentTimeMillis()+10000)) {
-			throw new Exception("Modified date must be now and not null");
-		}else {
-			toChange.setModifieddate(mod);
-			toChange.setRowguid(sp.getRowguid());
-			toChange.setSpecialoffer(sp.getSpecialoffer());
-			sopRep.save(toChange);
-		}
+		toChange.setModifieddate(sp.getModifieddate());
+		toChange.setRowguid(sp.getRowguid());
+		toChange.setSpecialoffer(sp.getSpecialoffer());
+		sopRep.save(toChange);
 		return sp;
 	}
 
@@ -69,4 +56,11 @@ public class SpecialOfferProductServiceImpl implements SpecialofferproductServic
 		sopRep.delete(sopRep.findById(spId).get());
 	}
 
+	public Iterable<Specialofferproduct> findAll(){
+		return sopRep.findAll();
+	}
+
+	public Optional<Specialofferproduct> findById(SpecialofferproductPK id) {
+		return sopRep.findById(id);
+	}
 }

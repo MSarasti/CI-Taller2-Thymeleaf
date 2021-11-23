@@ -5,6 +5,10 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import com.taller2.model.validation.addValidation;
+import com.taller2.model.validation.updateValidation;
 
 /**
  * The persistent class for the salesorderdetail database table.
@@ -31,8 +35,14 @@ public class Salesorderdetail implements Serializable {
 
 	private Integer rowguid;
 
+	@NotNull(groups={addValidation.class, updateValidation.class}, message="Unit price cannot be blank")
+	@Digits(groups={addValidation.class, updateValidation.class}, message="Unit price must be a number", fraction = 1000, integer = 1000)
+	@Positive(groups={addValidation.class, updateValidation.class}, message="Unit price must be greater than 0")
 	private BigDecimal unitprice;
 
+	@NotNull(groups={addValidation.class, updateValidation.class}, message="Unit price discount cannot be blank")
+	@Digits(groups={addValidation.class, updateValidation.class}, message="Unit price discount must be a number", fraction = 10000000, integer = 1)
+	@PositiveOrZero(groups={addValidation.class, updateValidation.class}, message="Unit price discount must be non negative")
 	private BigDecimal unitpricediscount;
 
 	// bi-directional many-to-one association to Specialofferproduct
@@ -41,6 +51,12 @@ public class Salesorderdetail implements Serializable {
 			@JoinColumn(name = "specialofferid", referencedColumnName = "specialofferid") })
 	private Specialofferproduct specialofferproduct;
 
+	@Transient
+	public Integer pId;
+	
+	@Transient
+	public Integer soId;
+	
 	public Salesorderdetail() {
 	}
 
@@ -116,4 +132,19 @@ public class Salesorderdetail implements Serializable {
 		this.unitpricediscount = unitpricediscount;
 	}
 
+	public Integer getpId() {
+		return pId;
+	}
+
+	public void setpId(Integer pId) {
+		this.pId = pId;
+	}
+
+	public Integer getsoId() {
+		return soId;
+	}
+
+	public void setsoId(Integer soId) {
+		this.soId = soId;
+	}
 }
