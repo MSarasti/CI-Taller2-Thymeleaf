@@ -41,8 +41,8 @@
 						</div>
 						<div style="display:none" class="form-group col-md-6">
 							<input
-								type="hidden" th:field="*{modifieddate}" class="form-control" id="modDateSOp"
-								placeholder="01/01/2020" th:value="${modifieddate=#dates.createNow()}" style="display:none;">
+								type="date" th:field="*{modifieddate}" class="form-control" id="modifieddate"
+								placeholder="01/01/2020" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" style="display:none;">
 						</div>
 					</div>
 					<div class="row">

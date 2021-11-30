@@ -33,14 +33,14 @@
 						<div class="form-group col-md-6">
 							<label for="discountpct" class="col-form-label">Discount</label> <input
 								type="text" th:field="*{discountpct}" class="form-control" id="discountpctSo"
-								placeholder="Category"> <span
+								placeholder="Discount"> <span
 								th:if="${#fields.hasErrors('discountpct')}" th:errors="*{discountpct}"
 								class="text-danger"></span>
 						</div>
 						<div style="display:none" class="form-group col-md-6">
 							<input
-								type="hidden" th:field="*{modifieddate}" class="form-control" id="modDateSo"
-								placeholder="01/01/2020" th:value="${modifieddate=#dates.createNow()}" style="display:none;">
+								type="date" th:field="*{modifieddate}" class="form-control" id="modifieddate"
+								placeholder="01/01/2020" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" style="display:none;">
 						</div>
 					</div>
 					<div class="row">

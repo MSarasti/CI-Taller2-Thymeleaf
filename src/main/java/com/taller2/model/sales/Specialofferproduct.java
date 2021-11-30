@@ -33,7 +33,6 @@ public class Specialofferproduct implements Serializable {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(groups={addValidation.class, updateValidation.class}, message="Modified date cannot be blank")
-	@PastOrPresent(groups={addValidation.class, updateValidation.class}, message="Modified date must be now")
 	private LocalDate modifieddate;
 
 	private Integer rowguid;

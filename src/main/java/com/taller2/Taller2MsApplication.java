@@ -22,7 +22,7 @@ public class Taller2MsApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext c = SpringApplication.run(Taller2MsApplication.class, args);
 		UserServiceImpl userService = c.getBean(UserServiceImpl.class);
-		//ProductServiceImpl pService = c.getBean(ProductServiceImpl.class);
+		ProductServiceImpl pService = c.getBean(ProductServiceImpl.class);
 		UserApp user1 = new UserApp();
 		user1.setUsername("Simba1");
 		user1.setPassword("{noop}Simba1234");
@@ -35,7 +35,7 @@ public class Taller2MsApplication {
 		
 		userService.save(user1);
 		userService.save(user2);
-		/*
+		
 		Productcategory pc = new Productcategory();
 		pc.setName("Food");
 		
@@ -49,19 +49,11 @@ public class Taller2MsApplication {
 		Unitmeasure um2 = new Unitmeasure();
 		um2.setName("pound");
 		
-		Product prod = new Product();
-		prod.setName("Pork");
-		prod.setDaystomanufacture(10);
-		prod.setProductnumber("1");
-		prod.setSellstartdate(LocalDate.now());
-		prod.setSellenddate(LocalDate.now().plusDays(10));
-		
 		pService.saveProductCategory(pc);
 		pService.saveProductSubcategory(psc);
 		pService.saveUnitmeasure(um1);
 		pService.saveUnitmeasure(um2);
-		pService.saveProduct(prod, pc.getProductcategoryid(), psc.getProductsubcategoryid(), um1.getUnitmeasurecode(), um2.getUnitmeasurecode());
-		*/
+		
 	}
 
 }
